@@ -32,6 +32,6 @@ fait pas depuis Claude Code.
 
 ## Une fois produits
 
-Copier `banniere_1024x500.png` et les captures dans
-`site-github-pages/img/` et les référencer depuis `index.html` (actuellement une
-maquette CSS tient lieu d'aperçu, en l'absence de vraies captures).
+Copier `banniere_1024x500.png` et les captures dans un dossier `img/` à la racine du
+dépôt et les référencer depuis `index.html` (actuellement une maquette CSS tient lieu
+d'aperçu, en l'absence de vraies captures).

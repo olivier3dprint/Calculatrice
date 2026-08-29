@@ -1,6 +1,6 @@
 # Politique de confidentialité — Calculatrice H/M
 
-Texte source de [site-github-pages/confidentialite.html](site-github-pages/confidentialite.html)
+Texte source de [confidentialite.html](confidentialite.html)
 (page bilingue publiée). Ce fichier sert de référence facile à relire ; c'est la page
 HTML qui doit être collée dans la Play Console, pas ce fichier.
 

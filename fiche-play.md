@@ -155,17 +155,17 @@ captures doivent venir d'un appareil ou de l'émulateur, via ADB (commande dans
 
 ## Site — page d'accueil et politique de confidentialité
 
-[site-github-pages/](site-github-pages/) contient `index.html` et
-`confidentialite.html`, sur le même principe bilingue que Vague Zéro / Gravity Flip.
+`index.html` et `confidentialite.html`, sur le même principe bilingue que Vague Zéro /
+Gravity Flip, vivent **à la racine** de ce dépôt (pas dans un sous-dossier
+`site-github-pages/`) : GitHub Pages en mode `main` / `/ (root)` ne sert `index.html`
+qu'à la racine, un sous-dossier y donnerait un 404 sur l'URL racine — erreur commise et
+corrigée le 29/08/2026.
 
 Contrairement à ce que suggérait la première version de cette fiche, ce contenu ne vit
 **pas** dans le dépôt de code (`olivier3dprint/CalculatriceHM`) mais dans un dépôt
-dédié — `olivier3dprint/Calculatrice` — exactement comme pour Gravity Flip. Ce dépôt
-contient directement l'ensemble du dossier `Play Store` (ce fichier compris), poussé
-sur `main`.
+dédié — `olivier3dprint/Calculatrice` — exactement comme pour Gravity Flip.
 
-Reste à faire dans GitHub : Settings → Pages → Source = `main` / `/ (root)`. URL
-résultante :
+GitHub Pages : Settings → Pages → Source = `main` / `/ (root)`. URL résultante :
 
 ```
 https://olivier3dprint.github.io/Calculatrice/
