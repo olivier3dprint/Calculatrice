@@ -126,21 +126,23 @@ aucun appel réseau — seule la bannière publicitaire en fait.
 
 ---
 
-## ⚠️ À vérifier avant tout nouvel envoi : identifiants AdMob de test
+## Identifiants AdMob — résolu le 29/08/2026
 
-Contrairement à ce que suppose une app déjà en production, le code actuel utilise
-encore les identifiants de **test** fournis par Google, pas les identifiants réels :
+Le code utilisait encore les identifiants de **test** fournis par Google. Depuis la
+version 51 / 2026.08.29.1, les vrais identifiants du compte AdMob sont en place :
 
 - `AndroidManifest.xml` : `com.google.android.gms.ads.APPLICATION_ID` =
-  `ca-app-pub-3940256099942544~3347511713` (App ID de test Google)
+  `ca-app-pub-7930855717646694~3359334936` (App ID réel)
 - `MainActivity.kt` (`AdBanner`) : `adUnitId` =
-  `ca-app-pub-3940256099942544/6300978111` (bloc de test Google)
+  `ca-app-pub-7930855717646694/4932271050` (bloc réel — repris du bloc déjà utilisé
+  côté WinDev)
 
-Tant que ces deux valeurs ne sont pas remplacées par les vrais identifiants du compte
-AdMob (AdMob → Applications → Paramètres pour l'App ID, AdMob → Blocs d'annonces pour
-l'Ad Unit ID), **la bannière ne rapporte aucun revenu réel**, même une fois l'AAB publié.
-Un commentaire dans le manifeste signale déjà ce point ; il n'a pas encore été traité au
-moment de la rédaction de cette fiche (29/08/2026).
+La bannière **bascule automatiquement** entre bloc de test et bloc réel selon
+`BuildConfig.DEBUG` (`buildConfig = true` ajouté dans `app/build.gradle.kts`) : un
+build de debug lancé depuis Android Studio continue de servir le bloc de test, un
+build release (comme l'AAB envoyé à Play) sert le bloc réel. Plus besoin de basculer
+la valeur à la main avant chaque envoi — l'oubli dans un sens coûtait un revenu nul,
+l'oubli dans l'autre risquait une suspension du compte pour trafic non valide.
 
 ---
 
