@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calculatrice H/M</title>
+<meta name="description" content="Additionne des durées en heures, minutes et secondes ; résultat en minutes, en heures/minutes et en heures décimales.">
+<style>
+  :root {
+    --fond: #10151c;
+    --texte: #e7edf2;
+    --texte-att: #9fb0bd;
+    --accent: #7fdcf5;
+    --accent-2: #f5a742;
+    --rouge: #ef5350;
+    --rose: #c2185b;
+    --bordure: #253039;
+    --panneau: #182029;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--fond);
+    color: var(--texte);
+    font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.6;
+  }
+  main {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 24px 24px 96px;
+  }
+  a { color: var(--accent); }
+
+  html:not([data-lang="en"]) .txt-en { display: none; }
+  html[data-lang="en"] .txt-fr { display: none; }
+
+  nav {
+    display: flex;
+    justify-content: flex-end;
+    padding-top: 20px;
+  }
+  #bouton-langue {
+    background: var(--panneau);
+    border: 1px solid var(--bordure);
+    color: var(--texte);
+    font: inherit;
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    padding: 8px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  #bouton-langue:hover { border-color: var(--accent); }
+
+  header.hero {
+    text-align: center;
+    padding: 24px 0 8px;
+  }
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  .badge .pastille {
+    width: 20px;
+    height: 20px;
+    border-radius: 6px;
+    background: var(--accent-2);
+    box-shadow: 0 0 16px rgba(245, 167, 66, 0.5);
+  }
+  .badge span {
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    color: var(--texte-att);
+    font-size: 0.85rem;
+    text-transform: uppercase;
+  }
+
+  /* Maquette de l'écran de l'appli, en l'absence de captures réelles pour l'instant. */
+  .maquette {
+    width: 100%;
+    max-width: 320px;
+    margin: 0 auto 28px;
+    background: var(--panneau);
+    border: 1px solid var(--bordure);
+    border-radius: 16px;
+    padding: 14px;
+  }
+  .ecran {
+    background: var(--accent);
+    color: #06333f;
+    border-radius: 8px;
+    padding: 10px 12px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    text-align: right;
+    margin-bottom: 8px;
+  }
+  .touches {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
+    margin-top: 10px;
+  }
+  .touches div {
+    background: var(--accent-2);
+    color: #3a2200;
+    border-radius: 6px;
+    padding: 8px 0;
+    font-weight: 700;
+    font-size: 0.85rem;
+  }
+  .touches div.egal { background: var(--rouge); color: #fff; }
+  .touches div.efface { background: var(--rose); color: #fff; }
+
+  h1 {
+    font-size: 2.2rem;
+    margin: 0 0 4px;
+    color: var(--accent);
+    letter-spacing: 0.01em;
+  }
+  .tagline {
+    font-size: 1.1rem;
+    color: var(--texte);
+    max-width: 520px;
+    margin: 0 auto 28px;
+  }
+  .disponible {
+    display: inline-block;
+    padding: 12px 28px;
+    border-radius: 10px;
+    background: var(--panneau);
+    border: 1px solid var(--accent);
+    color: var(--accent);
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    font-size: 0.95rem;
+    text-decoration: none;
+    transition: background 0.15s, color 0.15s;
+  }
+  .disponible:hover {
+    background: var(--accent);
+    color: #06222b;
+  }
+
+  h2 {
+    font-size: 1.3rem;
+    color: var(--accent);
+    margin: 56px 0 20px;
+    text-align: center;
+  }
+
+  .fonctions {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+  }
+  .fonctions div {
+    background: var(--panneau);
+    border: 1px solid var(--bordure);
+    border-radius: 10px;
+    padding: 16px 18px;
+  }
+  .fonctions strong {
+    display: block;
+    color: #fff;
+    margin-bottom: 4px;
+    font-size: 0.95rem;
+  }
+  .fonctions p {
+    margin: 0;
+    color: var(--texte-att);
+    font-size: 0.88rem;
+  }
+
+  code {
+    background: var(--panneau);
+    border: 1px solid var(--bordure);
+    border-radius: 4px;
+    padding: 1px 6px;
+    font-size: 0.9em;
+  }
+
+  footer {
+    margin-top: 72px;
+    padding-top: 20px;
+    border-top: 1px solid var(--bordure);
+    color: var(--texte-att);
+    font-size: 0.85rem;
+    text-align: center;
+  }
+  footer a { color: var(--texte-att); }
+  footer a:hover { color: var(--accent); }
+  footer .liens { margin-bottom: 8px; }
+  footer .liens a { margin: 0 10px; }
+</style>
+</head>
+<body>
+<nav><button id="bouton-langue" type="button">LANGUAGE: ENGLISH</button></nav>
+
+<main>
+  <header class="hero">
+    <div class="badge"><span class="pastille"></span><span>Calculatrice H/M</span></div>
+
+    <div class="maquette" aria-hidden="true">
+      <div class="ecran">2H30M+45M</div>
+      <div class="ecran">195 minutes</div>
+      <div class="ecran">3 heures 15</div>
+      <div class="touches">
+        <div>7</div><div>8</div><div>9</div>
+        <div>4</div><div>5</div><div>6</div>
+        <div>1</div><div>2</div><div>3</div>
+        <div class="egal">=</div><div>0</div><div>H</div>
+        <div class="efface">AC</div><div>M</div><div>S</div>
+      </div>
+    </div>
+
+    <p class="txt-fr tagline">Additionnez des durées en heures, minutes et secondes.
+    Résultat en minutes, en heures/minutes, et en heures décimales.</p>
+    <p class="txt-en tagline">Add up durations in hours, minutes, and seconds. Result
+    in minutes, in hours/minutes, and in decimal hours.</p>
+
+    <a class="disponible txt-fr" href="https://play.google.com/store/apps/details?id=com.masociete.calc_heure">DISPONIBLE SUR GOOGLE PLAY</a>
+    <a class="disponible txt-en" href="https://play.google.com/store/apps/details?id=com.masociete.calc_heure">AVAILABLE ON GOOGLE PLAY</a>
+  </header>
+
+  <h2 class="txt-fr">La calculatrice</h2>
+  <h2 class="txt-en">The calculator</h2>
+  <div class="fonctions">
+    <div>
+      <strong class="txt-fr">Saisie naturelle</strong>
+      <strong class="txt-en">Natural input</strong>
+      <p class="txt-fr">Tapez <code>2H30M+45M</code> directement, avec +, -, *, / et
+      des parenthèses.</p>
+      <p class="txt-en">Type <code>2H30M+45M</code> directly, with +, -, *, / and
+      parentheses.</p>
+    </div>
+    <div>
+      <strong class="txt-fr">Trois résultats</strong>
+      <strong class="txt-en">Three results</strong>
+      <p class="txt-fr">Minutes, heures/minutes, et heures décimales (heures
+      centièmes) en même temps.</p>
+      <p class="txt-en">Minutes, hours/minutes, and decimal hours at the same time.</p>
+    </div>
+    <div>
+      <strong class="txt-fr">Pensée pour la paie</strong>
+      <strong class="txt-en">Built for payroll</strong>
+      <p class="txt-fr">Les heures décimales sont le format attendu par la plupart
+      des logiciels de paie et de facturation.</p>
+      <p class="txt-en">Decimal hours are the format expected by most payroll and
+      invoicing software.</p>
+    </div>
+    <div>
+      <strong class="txt-fr">Hors ligne</strong>
+      <strong class="txt-en">Offline</strong>
+      <p class="txt-fr">Aucun compte, aucune donnée personnelle. Fonctionne sans
+      connexion.</p>
+      <p class="txt-en">No account, no personal data. Works without a connection.</p>
+    </div>
+  </div>
+
+  <footer>
+    <div class="liens">
+      <a class="txt-fr" href="confidentialite.html">Politique de confidentialité</a>
+      <a class="txt-en" href="confidentialite.html?lang=en">Privacy Policy</a>
+      <a href="mailto:olivier3dprint@gmail.com">olivier3dprint@gmail.com</a>
+    </div>
+    <div>Calculatrice H/M — Olivier Popiers</div>
+  </footer>
+</main>
+
+<script>
+  var CLE = "calculatricehm_langue";
+  var racine = document.documentElement;
+  var bouton = document.getElementById("bouton-langue");
+
+  function appliquer(langue) {
+    racine.setAttribute("data-lang", langue);
+    bouton.textContent = langue === "fr" ? "LANGUAGE: ENGLISH" : "LANGUE : FRANÇAIS";
+  }
+
+  function langueParDefaut() {
+    var enregistree = localStorage.getItem(CLE);
+    if (enregistree === "fr" || enregistree === "en") return enregistree;
+    return navigator.language.slice(0, 2) === "fr" ? "fr" : "en";
+  }
+
+  bouton.addEventListener("click", function () {
+    var suivante = racine.getAttribute("data-lang") === "fr" ? "en" : "fr";
+    localStorage.setItem(CLE, suivante);
+    appliquer(suivante);
+  });
+
+  appliquer(langueParDefaut());
+</script>
+</body>
+</html>
