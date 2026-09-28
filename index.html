@@ -79,42 +79,22 @@
     text-transform: uppercase;
   }
 
-  /* Maquette de l'écran de l'appli, en l'absence de captures réelles pour l'instant. */
-  .maquette {
-    width: 100%;
-    max-width: 320px;
+  /* Vraies captures de l'appli (Oppo A74), barres système retirées. */
+  .captures {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
     margin: 0 auto 28px;
-    background: var(--panneau);
+  }
+  .captures img {
+    width: 45%;
+    max-width: 240px;
+    height: auto;
+    aspect-ratio: 1 / 2;
+    border-radius: 18px;
     border: 1px solid var(--bordure);
-    border-radius: 16px;
-    padding: 14px;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45);
   }
-  .ecran {
-    background: var(--accent);
-    color: #06333f;
-    border-radius: 8px;
-    padding: 10px 12px;
-    font-weight: 700;
-    font-size: 0.95rem;
-    text-align: right;
-    margin-bottom: 8px;
-  }
-  .touches {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 6px;
-    margin-top: 10px;
-  }
-  .touches div {
-    background: var(--accent-2);
-    color: #3a2200;
-    border-radius: 6px;
-    padding: 8px 0;
-    font-weight: 700;
-    font-size: 0.85rem;
-  }
-  .touches div.egal { background: var(--rouge); color: #fff; }
-  .touches div.efface { background: var(--rose); color: #fff; }
 
   h1 {
     font-size: 2.2rem;
@@ -205,17 +185,11 @@
   <header class="hero">
     <div class="badge"><span class="pastille"></span><span>Calculatrice H/M</span></div>
 
-    <div class="maquette" aria-hidden="true">
-      <div class="ecran">2H30M+45M</div>
-      <div class="ecran">195 minutes</div>
-      <div class="ecran">3 heures 15</div>
-      <div class="touches">
-        <div>7</div><div>8</div><div>9</div>
-        <div>4</div><div>5</div><div>6</div>
-        <div>1</div><div>2</div><div>3</div>
-        <div class="egal">=</div><div>0</div><div>H</div>
-        <div class="efface">AC</div><div>M</div><div>S</div>
-      </div>
+    <div class="captures">
+      <img src="img/capture-1.webp" width="540" height="1080"
+        alt="Calculatrice H/M : 2H30M+45M donne 195 minutes, 3,25 heures, 3 heures 15">
+      <img src="img/capture-3.webp" width="540" height="1080"
+        alt="Calculatrice H/M : 7H45M*5 donne 2325 minutes, 38,75 heures, 38 heures 45">
     </div>
 
     <p class="txt-fr tagline">Additionnez des durées en heures, minutes et secondes.
